@@ -1,0 +1,40 @@
+.list {
+  margin-bottom: 30px;
+
+  li {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 10px 12px;
+    cursor: pointer;
+
+    .badge {
+      position: relative;
+      left: 4px;
+      margin-right: 14px;
+    }
+
+    &.active {
+      background-color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    svg {
+      margin-right: 6px;
+
+      path {
+        fill: #7C7C7C;
+      }
+
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
