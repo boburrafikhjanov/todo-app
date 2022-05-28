@@ -2,6 +2,29 @@ body {
   margin: 0;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dedede;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ababab;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -15,10 +38,11 @@ body {
   box-sizing: border-box;
 }
 
-.todo {
+.todoMain {
   position: absolute;
   left: 50%;
   top: 50%;
+  display: flex;
   width: 750px;
   height: 530px;
   transform: translate(-50%, -50%);
@@ -26,6 +50,22 @@ body {
   box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   font-size: 14px;
+}
+
+.todoSidebar {
+  background-color: #F4F6F8;
+  max-width: 200px;
+  height: 100%;
+  border-right: 1px solid #f1f1f1;
+  padding: 48px 20px 20px;
+  border-radius: 10px 0 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.todoContent {
+  flex: 1;
+  padding: 60px;
 }
 
 .input {
@@ -42,6 +82,13 @@ body {
   }
 }
 
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+}
+
 .button {
   border: none;
   background-color: #4DD599;
@@ -49,7 +96,6 @@ body {
   border-radius: 4px;
   padding: 10px 20px;
   font-size: 14px;
-  font-weight: 600;
   cursor: pointer;
   &:hover {
     background-color: darken(#4DD599, 6%);

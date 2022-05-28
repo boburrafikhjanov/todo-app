@@ -1,0 +1,101 @@
+.tasks {
+  &Title {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    color: #64C4ED;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F2F2F2;
+    line-height: 39px;
+    margin-bottom: 30px;
+
+    &:hover {
+      .tasksTitleEdit {
+        opacity: .3;
+      }
+    }
+
+    .tasksTitleEdit {
+      margin-left: 15px;
+      opacity: 0;
+      svg {
+        path {
+          fill: #767676;
+        }
+      }
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+
+  .taskItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      flex: 1;
+
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      label {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #E8E8E8;
+        border-radius: 50%;
+        cursor: pointer;
+        flex: none;
+
+        svg {
+          path {
+            stroke: transparent;
+          }
+        }
+
+        &:hover {
+          background-color: #F2F2F2;
+          border-color: #F2F2F2;
+          svg {
+            path {
+              stroke: #B3B3B3;
+            }
+          }
+        }
+      }
+
+      .taskItemText {
+        margin-left: 15px;
+        border: 0;
+        outline: 0;
+        width: 100%;
+      }
+
+      input:checked ~ {
+
+        label {
+          background-color: #4DD599;
+          border-color: #4DD599;
+          svg {
+            path {
+              stroke: #fff;
+            }
+          }
+        }
+
+        .taskItemText {
+          text-decoration: line-through;
+          color: #B4B4B4;
+        }
+      }
+    }
+  }
+}

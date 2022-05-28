@@ -1,28 +1,65 @@
-import React, {useEffect, useState} from 'react';
-import List from "../List";
-import Badge from "../Badge";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import {AddIcon, CloseIcon} from "../svg";
+import { Lists, Badge } from '../../components';
+
+import { AddIcon, CloseIcon } from "../svg";
 
 import './AddList.scss';
 
-const AddList= ({ colors }) => {
+const AddList = ({ colors, onAdd }) => {
 
-  const [visiblePopup, setVisiblePopup] = useState(true);
-  const [selectedColor, selectColor] = useState(colors[0].id);
+  const [visiblePopup, setVisiblePopup] = useState(false);
+  const [selectedColor, selectColor] = useState(3);
+  const [isLoading, setIsLoading] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    if (Array.isArray(colors)) {
+      selectColor(colors[0].id);
+    }
+  }, [colors]);
+
+  const onClose = () => {
+    setVisiblePopup(false);
+    setInputValue('');
+    selectColor(colors[0].id);
+  }
+
+  const addList = () => {
+    if(!inputValue) {
+      alert('Введите название списка!');
+      return;
+    }
+    setIsLoading(true);
+    axios
+      .post('http://localhost:3001/lists', {
+        name: inputValue,
+        colorId: selectedColor
+      })
+      .then(({ data }) => {
+        const color = colors.filter(c => c.id === selectedColor)[0].name;
+        const listObj = { ...data, color: { name: color } };
+        onAdd(listObj);
+        onClose();
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
 
   return (
     <div className='addList'>
 
-      <List
-        onClick={() => setVisiblePopup(!visiblePopup)}
+      <Lists
+        onClick={() => setVisiblePopup(true)}
         items={[
           {
             id: 6,
             icon: <AddIcon/>,
-            colorName: null,
+            color: null,
             className: 'listItemAdd',
-            label: 'Добавить папку',
+            name: 'Добавить список',
             active: false,
           }
         ]}
@@ -30,20 +67,35 @@ const AddList= ({ colors }) => {
 
       {visiblePopup && (
         <div className='addListPopup'>
-          <button onClick={() => setVisiblePopup(false)} className='addListPopupClose'><CloseIcon/></button>
-          <input className='input' type="text" placeholder='Название списка'/>
+
+          <button
+            onClick={onClose}
+            className='addListPopupClose'>
+            <CloseIcon/>
+          </button>
+
+          <input
+            value={inputValue}
+            onChange={event => setInputValue(event.target.value)}
+            className='input'
+            type="text"
+            placeholder='Название списка'/>
+
           <div className='addListPopupColors'>
-            {
-              colors.map(color => (
-                <Badge
-                  key={color.id}
-                  onClick={() => selectColor(color.id)}
-                  className={selectedColor === color.id ? 'active' : ''}
-                  color={color.name}/>
-              ))
-            }
+            {colors.map(color => (
+              <Badge
+                onClick={() => selectColor(color.id)}
+                key={color.id}
+                color={color.name}
+                className={selectedColor === color.id && 'active'}
+              />
+            ))}
           </div>
-          <button className='button'>Добавить</button>
+
+          <button onClick={addList} className='button'>
+            {isLoading ? 'Добавление...' : 'Добавить'}
+          </button>
+
         </div>
       )}
 

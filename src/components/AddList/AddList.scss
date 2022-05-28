@@ -1,6 +1,8 @@
 .addList {
+  position: relative;
   display: block;
-
+  margin-top: auto;
+  
   .list {
     margin-bottom: 0;
   }
@@ -35,7 +37,8 @@
   }
 
   &Popup {
-    position: relative;
+    position: absolute;
+    top: 50px;
     padding: 18px;
     width: 235px;
     height: 150px;
