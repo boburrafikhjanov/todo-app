@@ -16,8 +16,8 @@ You may also see any lint errors in the console.
 
 ### `npm mock-db`
 
-In order to work with mock data you need to run this command
-
+In order to work with mock data you need to run this command.\
+To view the json file in your browser open [http://localhost:3001]
 
 ### `npm test`
 
